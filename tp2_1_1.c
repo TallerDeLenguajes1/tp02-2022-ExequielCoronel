@@ -7,10 +7,10 @@ void main()
 {
     srand((int)time(NULL));
     int i;
-    double vt[N];
+    int vt[N];
     for (i = 0; i < N; i++)
     {
         vt[i] = 1 + rand() % 100;
-        printf("%d", vt[i]);
+        printf("\n%d", vt[i]);
     }
 }
