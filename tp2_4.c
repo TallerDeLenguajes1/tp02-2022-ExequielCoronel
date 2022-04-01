@@ -8,22 +8,64 @@ struct compu {
     char *tipo_cpu; //tipo de cpu arreglo de cadenas de caractares para evitar el ingreso por teclado
 };
 
+void mostrarDatos(struct compu *Pdatos);
 void cargarDatos(struct compu *Pdatos);
+void masVieja(struct compu *Pdatos);
+void mayorVelocidad(struct compu *Pdatos);
 
 void main(){
     srand((int) time (NULL));
     struct compu PC[MAXPC];
     cargarDatos(PC);
+    mostrarDatos(PC);
+    masVieja(PC);
+    mayorVelocidad(PC);
+}
 
-   //Libero Memoria
-   for(int i=0;i<MAXPC;i++){
-       free(PC[i].tipo_cpu);
-   }
+void mayorVelocidad(struct compu *Pdatos){
+    int max=0, aux=0;
+    for(int i=0;i<MAXPC;i++){
+        if((Pdatos->velocidad)>max){
+            max=Pdatos->velocidad;
+            aux=i;
+        }
+        Pdatos++;
+    }
+    Pdatos-=MAXPC;
+    Pdatos+=aux;
+    printf("\n\tCaracteristicas PC mas rapida: ");
+    printf("\nA%co: %i", 164, Pdatos->anio);
+    printf("\nProcesador: %s, Velocidad: %iGhz, Cantidad de Nucleos: %i", Pdatos->tipo_cpu, Pdatos->velocidad, Pdatos->cantidad);
+}
+
+void masVieja(struct compu *Pdatos){
+    int min=2023, aux=0;
+    for(int i=0; i<MAXPC; i++){
+        if((Pdatos->anio)<min){
+            min=Pdatos->anio;
+            aux=i;
+        }
+        Pdatos++;
+    }
+    Pdatos-=MAXPC;
+    Pdatos+=aux;
+    printf("\n\tCaracteristicas PC mas vieja: ");
+    printf("\nA%co: %i", 164, Pdatos->anio);
+    printf("\nProcesador: %s, Velocidad: %iGhz, Cantidad de Nucleos: %i", Pdatos->tipo_cpu, Pdatos->velocidad, Pdatos->cantidad);
+}
+
+void mostrarDatos(struct compu *Pdatos){
+    for(int i = 0;i<MAXPC;i++){
+        printf("\n\tCaracteristicas PC %i: ", i+1);
+        printf("\nA%co: %i", 164, Pdatos->anio);
+        printf("\nProcesador: %s, Velocidad: %iGhz, Cantidad de Nucleos: %i", Pdatos->tipo_cpu, Pdatos->velocidad, Pdatos->cantidad);
+        Pdatos++;
+    }
+   
 }
 
 void cargarDatos(struct compu *Pdatos){
     int num;
-    char tipos[6][10]={"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
     for (int i=0; i<MAXPC; i++){
         printf("\n\tCarga PC %i\n",i+1);
         printf("\nIndique la velocidad del procesador entre 1 y 3 Ghz: \n");
@@ -59,33 +101,27 @@ void cargarDatos(struct compu *Pdatos){
                 printf("\nIngrese un tipo valido!\n");
             }
         } while (num<1 || num>6);
-        Pdatos->tipo_cpu=malloc(10*sizeof(char));
+        
         switch (num)
         {
         case 1:
-            Pdatos->tipo_cpu=tipos[0];
+            Pdatos->tipo_cpu="Intel";
             break;
-        
         case 2:
-            Pdatos->tipo_cpu=tipos[1];
+            Pdatos->tipo_cpu="AMD";            
             break;
-        
         case 3:
-            Pdatos->tipo_cpu=tipos[2];
+            Pdatos->tipo_cpu="Celeron";           
             break;
-
         case 4:
-            Pdatos->tipo_cpu=tipos[3];
+            Pdatos->tipo_cpu="Athlon";            
             break;
-
         case 5:
-            Pdatos->tipo_cpu=tipos[4];
-            break;
-        
+            Pdatos->tipo_cpu="Core";           
+            break;       
         case 6:
-            Pdatos->tipo_cpu=tipos[5];
-            break;
-        
+            Pdatos->tipo_cpu="Pentium";
+            break;        
         default:
             Pdatos->tipo_cpu="Error";
             printf("Error!");
