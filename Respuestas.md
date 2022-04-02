@@ -1,8 +1,8 @@
-#Alumno: Coronel Francisco Exequiel
+# Alumno: Coronel Francisco Exequiel
 
-##Respuestas TPN2
+## Respuestas TPN2
 
-###¿Puede ver el archivo tp2_1_2.c? ¿Por qué?
+### ¿Puede ver el archivo tp2_1_2.c? ¿Por qué?
 No se puede ver el archivo porque fue commiteado en la rama **Opcion_2**
 
 ###vuelva a ejecutar el comando gitk --all ¿Qué diferencias nota?
