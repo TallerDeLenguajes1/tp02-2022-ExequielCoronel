@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAXPC 5
 
 struct compu {
@@ -20,6 +21,10 @@ void main(){
     mostrarDatos(PC);
     masVieja(PC);
     mayorVelocidad(PC);
+    //libero memoria
+    for(int i=0;i<MAXPC;i++){
+        free(PC[i].tipo_cpu);
+    }
 }
 
 void mayorVelocidad(struct compu *Pdatos){
@@ -65,8 +70,10 @@ void mostrarDatos(struct compu *Pdatos){
 }
 
 void cargarDatos(struct compu *Pdatos){
+    char tipos[6][10]={"Intel", "AMD", "Celeron", "Athlon", "Core", "Pentium"};
     int num;
     for (int i=0; i<MAXPC; i++){
+        Pdatos->tipo_cpu =(char *)malloc(10);
         printf("\n\tCarga PC %i\n",i+1);
         printf("\nIndique la velocidad del procesador entre 1 y 3 Ghz: \n");
         do{
@@ -105,22 +112,22 @@ void cargarDatos(struct compu *Pdatos){
         switch (num)
         {
         case 1:
-            Pdatos->tipo_cpu="Intel";
+            strcpy(Pdatos->tipo_cpu,tipos[0]);
             break;
         case 2:
-            Pdatos->tipo_cpu="AMD";            
+            strcpy(Pdatos->tipo_cpu,tipos[1]);
             break;
         case 3:
-            Pdatos->tipo_cpu="Celeron";           
+            strcpy(Pdatos->tipo_cpu,tipos[2]);          
             break;
         case 4:
-            Pdatos->tipo_cpu="Athlon";            
+            strcpy(Pdatos->tipo_cpu,tipos[3]);            
             break;
         case 5:
-            Pdatos->tipo_cpu="Core";           
+            strcpy(Pdatos->tipo_cpu,tipos[4]);        
             break;       
         case 6:
-            Pdatos->tipo_cpu="Pentium";
+            strcpy(Pdatos->tipo_cpu,tipos[5]);
             break;        
         default:
             Pdatos->tipo_cpu="Error";
